@@ -73,6 +73,8 @@ func main() {
 	procesoDetener := make(chan uint64)
 	noImprimir := make(chan bool)
 
+	fmt.Println("len:",len(procesos))
+
 	for {
 		imprimirMenu()
 		fmt.Scanln(&opc)
@@ -94,12 +96,15 @@ func main() {
 			go FuncionProceso(procesoNuevo.id, canalAct, procesoDetener)
 
 		case opcMostrarProcesos:
-			canalAct <- true
-			go Imprimir(canalAct, noImprimir)
+			if len(procesos) > 0{
+				canalAct <- true
+				go Imprimir(canalAct, noImprimir)
 
-			fmt.Scanln(&input)
-			noImprimir <- true
-			canalAct <- false
+				fmt.Scanln(&input)
+				noImprimir <- true
+			} else {
+				fmt.Printf("\nNo se ha agregado un proceso")
+			}
 
 		case opcTerminarProceso:
 			fmt.Printf("\nIngrese el ID del proceso que desea detener: ")
