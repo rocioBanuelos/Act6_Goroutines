@@ -73,8 +73,6 @@ func main() {
 	procesoDetener := make(chan uint64)
 	noImprimir := make(chan bool)
 
-	fmt.Println("len:",len(procesos))
-
 	for {
 		imprimirMenu()
 		fmt.Scanln(&opc)
